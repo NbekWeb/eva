@@ -1,7 +1,8 @@
 export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@ant-design-vue/nuxt'
   ],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css',],
 })
