@@ -4,5 +4,5 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@ant-design-vue/nuxt'
   ],
-  css: ['~/assets/css/main.css',],
+  css: ['~/assets/css/main.css'],
 })

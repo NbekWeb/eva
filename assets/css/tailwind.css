@@ -2,11 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-    --color-dark-100: #fff323;
-    --color-dark-200: #262323;
-    --color-dark-300: #343131;
-    --color-gray-200: #afafaf;
-    --color-gray-400: #4e4949;
-    --color-orange-500: #ffa800;
-  }

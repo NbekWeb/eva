@@ -1,15 +1,27 @@
 <script setup lang="ts">
 interface FormData {
+  name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const form = reactive<FormData>({
+  name: "",
   email: "",
   password: "",
+  confirmPassword: "",
 });
 
 const rules: any = {
+  name: [
+    { required: true, message: "Введите имя", trigger: "blur" },
+    {
+      min: 3,
+      message: "Имя должно содержать минимум 3 символа",
+      trigger: "blur",
+    },
+  ],
   email: [
     { required: true, message: "Введите почту", trigger: "blur" },
     { type: "email", message: "Некорректный формат почты", trigger: "blur" },
@@ -19,6 +31,18 @@ const rules: any = {
     {
       min: 6,
       message: "Пароль должен содержать минимум 6 символов",
+      trigger: "blur",
+    },
+  ],
+  confirmPassword: [
+    { required: true, message: "Повторите пароль", trigger: "blur" },
+    {
+      validator: (_: any, value: string) => {
+        if (value !== form.password && !!value) {
+          return Promise.reject("Пароли не совпадают");
+        }
+        return Promise.resolve();
+      },
       trigger: "blur",
     },
   ],
@@ -34,11 +58,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="py-10 min-h-max max-sm:py-7">
-    <h2
-      class="text-5xl font-medium text-center max-sm:text-3xl max-sm:mb-7 text-dark-200 mb-15"
-    >
-      Вход
+  <div class="py-10 overflow-x-hidden min-h-max max-sm:py-7">
+    <h2 class="text-5xl font-medium text-center text-dark-200 mb-15 max-sm:text-3xl max-sm:mb-7">
+      Регистрация
     </h2>
 
     <a-form
@@ -48,6 +70,10 @@ definePageMeta({
       @submit.prevent="onSubmit"
       class="max-w-md mt-4"
     >
+      <a-form-item label="Имя" name="name">
+        <a-input v-model:value="form.name" placeholder="Введите имя" />
+      </a-form-item>
+
       <a-form-item label="Электронная почта" name="email">
         <a-input v-model:value="form.email" placeholder="Введите почту" />
       </a-form-item>
@@ -59,16 +85,22 @@ definePageMeta({
         />
       </a-form-item>
 
+      <a-form-item label="Подтверждение пароля" name="confirmPassword">
+        <a-input-password
+          v-model:value="form.confirmPassword"
+          placeholder="Повторите пароль"
+        />
+      </a-form-item>
       <div class="flex flex-col gap-5 max-sm:gap-3">
         <a-button type="primary" html-type="submit" class="w-full"
-          >Вход</a-button
+          >Регистратсия</a-button
         >
         <nuxt-link
-          to="/regis"
-          class="flex justify-center text-base font-semibold !text-blue-300 !underline opacity-80 hover:opacity-100 transition duration-300"
+          to="/login"
+          class="flex justify-center text-base font-semibold max-sm:text-sm !text-blue-300 !underline opacity-80 hover:opacity-100 transition duration-300"
         >
-          Создать новый аккаунт
-        </nuxt-link>
+          Войти в аккаунт</nuxt-link
+        >
         <div
           class="text-base font-bold text-blue-300 flex gap-3.5 items-center"
         >
