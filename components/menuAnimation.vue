@@ -1,17 +1,29 @@
 <template>
-  <div id="container" @click="onMenuToggle" class="relative">
-    <h1 id="icon-container" class="cursor-pointer block h-6 w-6">
+  <div
+    id="container"
+    @click="onMenuToggle"
+    class="relative"
+    :class="type === 'dark' ? 'dark' : 'whiting'"
+  >
+    <div id="icon-container" class="block w-6 h-6 cursor-pointer">
       <div
-        :class="iconClass"
+        :class="[iconClass, type === 'dark' ? 'bg-dark-200' : 'bg-whiting']"
         id="icon"
-        class="absolute top-1/2 transform -translate-y-1/2 w-6 h-0.5 rounded bg-dark-200 transition-all ease-in-out duration-300"
+        class="absolute top-1/2 transform -translate-y-1/2 w-6 h-0.5 rounded transition-all ease-in-out duration-300"
       ></div>
-    </h1>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+
+const props = defineProps({
+  type: {
+    type: String,
+    default: "dark",
+  },
+});
 
 const iconClass = ref("icon-menu");
 const menuOpen = ref(false);
@@ -36,7 +48,20 @@ const onMenuToggle = () => {
   height: 2px;
   border-radius: 4px;
   transition: top ease 0.3s, transform ease 0.3s 0.3s, background 0.3s ease 0.3s;
+}
+
+.dark .icon-menu::before,
+.dark .icon-menu::after,
+.dark .icon-close::before,
+.dark .icon-close::after {
   background: #222;
+}
+
+.whiting .icon-menu::before,
+.whiting .icon-menu::after,
+.whiting .icon-close::before,
+.whiting .icon-close::after {
+  background: #fefeff;
 }
 
 .icon-menu::before {
@@ -56,12 +81,10 @@ const onMenuToggle = () => {
 .icon-close::before {
   transform: rotate(45deg);
   top: 0px;
-  background: #222;
 }
 
 .icon-close::after {
   transform: rotate(-45deg);
   top: 0px;
-  background: #222;
 }
 </style>

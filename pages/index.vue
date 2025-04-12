@@ -10,32 +10,37 @@ useHead({
     { property: "og:description", content: "Open Graph Description" },
   ],
 });
+
+const open = ref<boolean>(false);
+
+const openMenu = (val: boolean) => {
+  open.value = val;
+};
 </script>
 <template>
   <div
-    class="w-full h-screen text-white bg-dark-180 overflow-y-hidden flex flex-col"
+    class="flex flex-col w-full h-screen overflow-y-hidden text-white bg-dark-180"
   >
-    
     <div
-      class="custom-container flex flex-col h-full px-15 max-xl:px-8 max-md:px-5 mx-auto flex-grow"
+      class="flex flex-col flex-grow h-full mx-auto custom-container px-15 max-xl:px-8 max-md:px-5"
     >
       <div
-        class="flex items-center border-b border-gray-500 py-9 justify-between max-lg:py-5 max-sm:py-3"
+        class="flex items-center justify-between border-b border-gray-500 py-9 max-lg:py-5 max-sm:py-3"
       >
         <nuxt-link to="/">
           <img src="@/assets/img/logo.svg" class="h-9 max-sm:h-6" />
         </nuxt-link>
         <div
-          class="flex max-sm:hidden items-center justify-center flex-grow text-2xl font-semibold gap-15 max-2xl:text-xl"
+          class="flex items-center justify-center flex-grow text-2xl font-semibold max-sm:hidden gap-15 max-2xl:text-xl"
         >
           <nuxt-link to="/"> Главная </nuxt-link>
           <nuxt-link to="/"> Задать вопрос </nuxt-link>
           <nuxt-link to="/"> Блог </nuxt-link>
         </div>
-        <menuAnimation class="sm:hidden"/>
+        <menuAnimation class="sm:hidden" type="white" @toggleMenu="openMenu" />
       </div>
       <div
-        class="flex justify-between h-full gap-25 pt-15 pb-5 max-2xl:pt-10 max-xl:pt-5 flex-grow"
+        class="flex justify-between flex-grow h-full pb-5 gap-25 pt-15 max-2xl:pt-10 max-xl:pt-5"
       >
         <div
           class="flex flex-col justify-between h-full pb-32 max-2xl:pb-24 max-xl:pb-15 max-lg:pb-10"
@@ -61,7 +66,7 @@ useHead({
             </button>
           </div>
           <div
-            class="flex max-sm:flex-wrap items-center text-base text-center gap-22 max-lg:justify-between max-lg:gap-15 max-sm:gap-3 max-sm:justify-center"
+            class="flex items-center text-base text-center max-sm:flex-wrap gap-22 max-lg:justify-between max-lg:gap-15 max-sm:gap-3 max-sm:justify-center"
           >
             <div class="flex items-center gap-5 max-sm:gap-2.5">
               <span
@@ -85,7 +90,7 @@ useHead({
         </div>
         <img
           src="@/assets/img/chip.png"
-          class="py-15 max-2xl:py-5 max-xl:py-0 h-full max-h-full max-lg:hidden"
+          class="h-full max-h-full py-15 max-2xl:py-5 max-xl:py-0 max-lg:hidden"
         />
       </div>
     </div>
