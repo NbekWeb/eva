@@ -8,6 +8,7 @@
       <img
         src="~/assets/img/auth.png"
         class="fixed top-0 right-0 object-cover w-1/2 h-screen rounded-l-3xl"
+         loading="lazy"
       />
     </div>
   </div>
