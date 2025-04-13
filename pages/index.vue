@@ -1,5 +1,6 @@
-<script setup lang="ts">
+<script setup>
 import { useHead } from "#imports";
+import MobileNavbar from "~/components/MobileNavbar.vue";
 
 useHead({
   title: "Главная",
@@ -11,16 +12,23 @@ useHead({
   ],
 });
 
-const open = ref<boolean>(false);
+const mobileNavbarRef = ref();
+const open = ref(false);
 
-const openMenu = (val: boolean) => {
-  open.value = val;
+const openMenu = () => {
+  open.value = !open.value;
+  if (open.value) {
+    mobileNavbarRef.value?.openMenu();
+  } else {
+    mobileNavbarRef.value?.closeMenu();
+  }
 };
 </script>
 <template>
   <div
     class="flex flex-col w-full h-screen overflow-hidden text-white bg-dark-180"
   >
+    <MobileNavbar ref="mobileNavbarRef" />
     <div
       class="flex flex-col flex-grow h-full mx-auto custom-container px-15 max-xl:px-8 max-md:px-5"
     >
@@ -37,7 +45,11 @@ const openMenu = (val: boolean) => {
           <nuxt-link to="/"> Задать вопрос </nuxt-link>
           <nuxt-link to="/"> Блог </nuxt-link>
         </div>
-        <menuAnimation class="sm:hidden" type="white" @toggleMenu="openMenu" />
+        <menuAnimation
+          class="z-20 sm:hidden"
+          type="white"
+          @toggleMenu="openMenu"
+        />
       </div>
       <div
         class="flex justify-between flex-grow h-full pb-5 gap-25 pt-15 max-2xl:pt-5"
@@ -60,7 +72,7 @@ const openMenu = (val: boolean) => {
               nisl eu consectetur. Mi massa elementum odio eu viverra amet.
             </p>
             <button
-              class="px-6 py-4 max-sm:py-2.5 text-sm font-bold transition hover:cursor-pointer max-2xl:py-2.5 duration-300 bg-white rounded text-dark-180 hover:bg-white/90 max-lg:max-w-max"
+              class="px-6 py-4 max-2xl:px-4 text-sm font-bold transition hover:cursor-pointer max-2xl:py-2.5 duration-300 bg-white rounded text-dark-180 hover:bg-white/90 max-lg:max-w-max"
             >
               Задать вопрос
             </button>

@@ -9,7 +9,7 @@
       <div
         :class="[iconClass, type === 'dark' ? 'bg-dark-200' : 'bg-whiting']"
         id="icon"
-        class="absolute top-1/2 transform -translate-y-1/2 w-6 h-0.5 rounded transition-all ease-in-out duration-300"
+        class="absolute top-1/2 transform -translate-y-1/2 w-5 h-0.5 rounded transition-all ease-in-out duration-300"
       ></div>
     </div>
   </div>
@@ -44,7 +44,7 @@ const onMenuToggle = () => {
   content: "";
   display: block;
   position: absolute;
-  width: 24px;
+  width: 20px;
   height: 2px;
   border-radius: 4px;
   transition: top ease 0.3s, transform ease 0.3s 0.3s, background 0.3s ease 0.3s;
