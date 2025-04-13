@@ -19,7 +19,7 @@ const openMenu = (val: boolean) => {
 </script>
 <template>
   <div
-    class="flex flex-col w-full h-screen overflow-y-hidden text-white bg-dark-180"
+    class="flex flex-col w-full h-screen overflow-hidden text-white bg-dark-180"
   >
     <div
       class="flex flex-col flex-grow h-full mx-auto custom-container px-15 max-xl:px-8 max-md:px-5"
@@ -40,10 +40,10 @@ const openMenu = (val: boolean) => {
         <menuAnimation class="sm:hidden" type="white" @toggleMenu="openMenu" />
       </div>
       <div
-        class="flex justify-between flex-grow h-full pb-5 gap-25 pt-15 max-2xl:pt-10 max-xl:pt-5"
+        class="flex justify-between flex-grow h-full pb-5 gap-25 pt-15 max-2xl:pt-5"
       >
         <div
-          class="flex flex-col justify-between h-full pb-32 max-2xl:pb-24 max-xl:pb-15 max-lg:pb-10"
+          class="flex flex-col justify-between h-full pb-20 max-2xl:pb-10 max-lg:pb-10"
         >
           <div
             class="max-w-[500px] max-lg:max-w-max max-lg:flex-grow max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:items-center"
@@ -54,24 +54,22 @@ const openMenu = (val: boolean) => {
               "Ева" — это инновационный онлайн-сервис
             </h1>
             <p
-              class="text-base text-gray-100 my-9 max-lg:text-center max-sm:my-6 max-sm:text-sm"
+              class="text-base text-gray-100 my-9 max-2xl:my-6 max-lg:text-center max-sm:my-6 max-sm:text-sm"
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nunc
               nisl eu consectetur. Mi massa elementum odio eu viverra amet.
             </p>
             <button
-              class="px-6 py-4 max-sm:py-2.5 text-sm font-bold transition duration-300 bg-white rounded text-dark-180 hover:bg-white/90 max-lg:max-w-max"
+              class="px-6 py-4 max-sm:py-2.5 text-sm font-bold transition hover:cursor-pointer max-2xl:py-2.5 duration-300 bg-white rounded text-dark-180 hover:bg-white/90 max-lg:max-w-max"
             >
               Задать вопрос
             </button>
           </div>
           <div
-            class="flex items-center text-base text-center max-sm:flex-wrap gap-22 max-lg:justify-between max-lg:gap-15 max-sm:gap-3 max-sm:justify-center"
+            class="flex items-center text-base text-center max-sm:flex-wrap max-2xl:text-sm gap-22 max-lg:justify-between max-lg:gap-15 max-sm:gap-3 max-sm:justify-center"
           >
             <div class="flex items-center gap-5 max-sm:gap-2.5">
-              <span
-                class="text-5xl font-medium text-whiting max-lg:text-4xl max-md:text-3xl"
-              >
+              <span class="text-5xl font-medium text-whiting max-2xl:text-3xl">
                 9999
               </span>
               <span class="max-w-28 max-lg:max-w-max"
@@ -79,9 +77,7 @@ const openMenu = (val: boolean) => {
               >
             </div>
             <div class="flex items-center gap-5 max-sm:gap-2.5">
-              <span
-                class="text-5xl font-medium text-whiting max-lg:text-4xl max-md:text-3xl"
-              >
+              <span class="text-5xl font-medium text-whiting max-2xl:text-3xl">
                 1M+
               </span>
               <span class="max-w-28 max-lg:max-w-max">Зарегриствуны люди </span>
@@ -90,7 +86,7 @@ const openMenu = (val: boolean) => {
         </div>
         <img
           src="@/assets/img/chip.png"
-          class="h-full max-h-full py-15 max-2xl:py-5 max-xl:py-0 max-lg:hidden"
+          class="h-full max-h-[500px] max-2xl:max-h-[400px] my-auto max-lg:hidden"
         />
       </div>
     </div>
