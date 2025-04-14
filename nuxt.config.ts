@@ -5,6 +5,11 @@ export default defineNuxtConfig({
     '@ant-design-vue/nuxt'
   ],
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    public: {
+      NUXT_PUBLIC_API_URL: process.env.NUXT_PUBLIC_API_URL || '',
+    }
+  },
   app: {
     head: {
       link: [
