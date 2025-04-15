@@ -19,7 +19,7 @@ const onMenuToggle = () => {
 
 const navLinks = [
   { name: "Главная", to: "/" },
-  { name: "Задать вопрос", to: "/" },
+  { name: "Задать вопрос", to: "/chat" },
   { name: "Блог", to: "/blog" },
 ];
 
@@ -29,9 +29,8 @@ const handleNavigation = (to) => {
 };
 </script>
 <template>
-  <div>
+  <div class="sm:hidden">
     <div
-      id="container"
       @click="onMenuToggle"
       class="relative z-20"
       :class="type === 'dark' ? 'dark' : 'whiting'"
@@ -46,7 +45,7 @@ const handleNavigation = (to) => {
     </div>
 
     <div
-      class="fixed top-0 left-0 z-10 flex flex-col items-center justify-center w-screen h-screen gap-5 text-lg font-semibold transition-transform duration-500 ease-in-out bg-blue-300 text-whiting sm:hidden"
+      class="fixed top-0 left-0 z-[11] flex flex-col items-center justify-center w-screen h-screen gap-5 text-lg font-semibold transition-transform duration-500 ease-in-out bg-blue-300 text-whiting"
       :class="open ? 'translate-x-0' : 'translate-x-full'"
     >
       <span
@@ -60,7 +59,7 @@ const handleNavigation = (to) => {
     </div>
   </div>
 </template>
-<style scoped>
+<style>
 .icon-menu::before,
 .icon-menu::after,
 .icon-close::before,
@@ -111,6 +110,6 @@ const handleNavigation = (to) => {
 .icon-close::after {
   transform: rotate(-45deg);
   top: 0px;
-  background: #fefeff !important; 
+  background: #fefeff !important;
 }
 </style>

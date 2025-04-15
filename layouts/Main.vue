@@ -17,10 +17,10 @@ definePageMeta({
         class="flex items-center justify-center flex-grow text-2xl font-semibold text-blue-400 max-sm:hidden gap-15 max-2xl:text-xl"
       >
         <nuxt-link to="/"> Главная </nuxt-link>
-        <nuxt-link to="/"> Задать вопрос </nuxt-link>
+        <nuxt-link to="/chat"> Задать вопрос </nuxt-link>
         <nuxt-link to="/blog"> Блог </nuxt-link>
       </div>
-      <MobileNavbar class="z-20 sm:hidden" type="dark" />
+      <MobileNavbar class="" type="dark" />
     </div>
     <nuxt-page />
   </div>

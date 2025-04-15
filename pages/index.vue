@@ -32,7 +32,7 @@ const closeMenu = () => {
 </script>
 <template>
   <div
-    class="flex flex-col w-full h-screen overflow-hidden text-white bg-dark-180"
+    class="flex flex-col w-full h-[100dvh] overflow-hidden text-white bg-dark-180 "
   >
     <div
       class="flex flex-col flex-grow h-full mx-auto custom-container px-15 max-xl:px-8 max-md:px-5"
@@ -47,7 +47,7 @@ const closeMenu = () => {
           class="flex items-center justify-center flex-grow text-2xl font-semibold max-sm:hidden gap-15 max-2xl:text-xl"
         >
           <nuxt-link to="/"> Главная </nuxt-link>
-          <nuxt-link to="/"> Задать вопрос </nuxt-link>
+          <nuxt-link to="/chat"> Задать вопрос </nuxt-link>
           <nuxt-link to="/blog"> Блог </nuxt-link>
         </div>
         <MobileNavbar class="z-20 sm:hidden" type="white" />
