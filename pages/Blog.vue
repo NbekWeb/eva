@@ -2,9 +2,12 @@
 import { ref, computed } from "vue";
 import { useHead } from "#imports";
 import useBlog from "~/stores/blog.pinia";
+import useCore from "~/stores/core.pinia";
 
 const blogPinia = useBlog();
+const corePinia = useCore();
 const { blogs } = storeToRefs(blogPinia);
+const { loadingUrl } = storeToRefs(corePinia);
 
 useHead({
   title: "Blog",
@@ -58,20 +61,21 @@ onMounted(() => {
       </div>
       <MobileNavbar class="z-20 sm:hidden" type="dark" />
     </div>
-    <div
-      class="grid grid-cols-4 mt-10 max-sm:mt-5 gap-x-15 max-2xl:gap-x-10 gap-y-6 max-xl:gap-x-6 max-xl:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-5"
-    >
-      <!-- {{ blogs }} -->
-      <BlogCard v-for="blog in blogs.results" :key="blog.id" :data="blog" />
-    </div>
-    <div class="flex justify-center py-10">
-      <a-pagination
-        :hideOnSinglePage="true"
-        :current="currentPage"
-        :total="blogs.length"
-        :page-size="pageSize"
-        @change="onPageChange"
-      />
-    </div>
+    <a-spin :spinning="loadingUrl.has('blogs/')">
+      <div
+        class="grid grid-cols-4 mt-10 max-sm:mt-5 gap-x-15 max-2xl:gap-x-10 gap-y-6 max-xl:gap-x-6 max-xl:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-5"
+      >
+        <BlogCard v-for="blog in blogs.results" :key="blog.id" :data="blog" />
+      </div>
+      <div class="flex justify-center py-10">
+        <a-pagination
+          :hideOnSinglePage="true"
+          :current="currentPage"
+          :total="blogs.length"
+          :page-size="pageSize"
+          @change="onPageChange"
+        />
+      </div>
+    </a-spin>
   </div>
 </template>
