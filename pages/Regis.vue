@@ -1,24 +1,35 @@
-<script setup lang="ts">
-interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+<script setup>
+import useAuth from "~/stores/auth.pinia";
 
-const form = reactive<FormData>({
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const authPinia = useAuth();
+
+const form = reactive({
   name: "",
+  username: "",
   email: "",
   password: "",
-  confirmPassword: "",
+  password_confirm: "",
 });
+const formRef = ref(null);
 
-const rules: any = {
+const rules = {
   name: [
     { required: true, message: "Введите имя", trigger: "blur" },
     {
       min: 3,
       message: "Имя должно содержать минимум 3 символа",
+      trigger: "blur",
+    },
+  ],
+  username: [
+    { required: true, message: "Введите логин", trigger: "blur" },
+    {
+      min: 3,
+      message: "Логин должен содержать минимум 3 символа",
       trigger: "blur",
     },
   ],
@@ -34,11 +45,11 @@ const rules: any = {
       trigger: "blur",
     },
   ],
-  confirmPassword: [
+  password_confirm: [
     { required: true, message: "Повторите пароль", trigger: "blur" },
     {
-      validator: (_: any, value: string) => {
-        if (value !== form.password && !!value) {
+      validator(_, value) {
+        if (value !== form.password && value) {
           return Promise.reject("Пароли не совпадают");
         }
         return Promise.resolve();
@@ -48,8 +59,28 @@ const rules: any = {
   ],
 };
 
-const onSubmit = () => {
-  console.log("Form Data:", form);
+const onSubmit = async () => {
+  try {
+    await formRef.value.validate();
+    authPinia.postRegis({ ...form }, () => {
+      authPinia.postLogin(
+        {
+          identifier: form.username,
+          password: form.password,
+        },
+        () => {
+          form.name = "";
+          form.username = "";
+          form.email = "";
+          form.password = "";
+          form.password_confirm = "";
+          router.push("/");
+        }
+      );
+    });
+  } catch {
+    message.error("Пожалуйста, заполните форму корректно!");
+  }
 };
 
 definePageMeta({
@@ -59,19 +90,26 @@ definePageMeta({
 
 <template>
   <div class="py-10 overflow-x-hidden min-h-max max-sm:py-7">
-    <h2 class="text-5xl font-medium text-center text-dark-200 mb-15 max-sm:text-3xl max-sm:mb-7">
+    <h2
+      class="text-5xl font-medium text-center text-dark-200 mb-15 max-sm:text-3xl max-sm:mb-7"
+    >
       Регистрация
     </h2>
 
     <a-form
       layout="vertical"
       :model="form"
+      ref="formRef"
       :rules="rules"
-      @submit.prevent="onSubmit"
+      @finish="onSubmit"
       class="max-w-md mt-4"
     >
       <a-form-item label="Имя" name="name">
         <a-input v-model:value="form.name" placeholder="Введите имя" />
+      </a-form-item>
+
+      <a-form-item label="Логин" name="username">
+        <a-input v-model:value="form.username" placeholder="Введите логин" />
       </a-form-item>
 
       <a-form-item label="Электронная почта" name="email">
@@ -85,40 +123,45 @@ definePageMeta({
         />
       </a-form-item>
 
-      <a-form-item label="Подтверждение пароля" name="confirmPassword">
+      <a-form-item label="Подтверждение пароля" name="password_confirm">
         <a-input-password
-          v-model:value="form.confirmPassword"
+          v-model:value="form.password_confirm"
           placeholder="Повторите пароль"
         />
       </a-form-item>
+
       <div class="flex flex-col gap-5 max-sm:gap-3">
         <a-button type="primary" html-type="submit" class="w-full"
-          >Регистратсия</a-button
+          >Регистрация</a-button
         >
+
         <nuxt-link
           to="/login"
           class="flex justify-center text-base font-semibold max-sm:text-sm !text-blue-300 !underline opacity-80 hover:opacity-100 transition duration-300"
         >
-          Войти в аккаунт</nuxt-link
-        >
+          Войти в аккаунт
+        </nuxt-link>
+
         <div
           class="text-base font-bold text-blue-300 flex gap-3.5 items-center"
         >
-          <span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span
-          ><span>или</span
-          ><span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span>
+          <span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span>
+          <span>или</span>
+          <span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span>
         </div>
+
         <a-button class="flex items-center justify-center w-full gap-3">
-          <img src="@/assets/img/google.svg" class="" />
-          <span class="flex w-20 text-start"> Google </span>
+          <img src="@/assets/img/google.svg" />
+          <span class="flex w-20 text-start">Google</span>
         </a-button>
+
         <div class="vk">
           <a-button
             type="primary"
             class="flex items-center justify-center w-full gap-3"
           >
-            <img src="@/assets/img/vk.svg" class="" />
-            <span class="flex w-20 text-start"> VK </span>
+            <img src="@/assets/img/vk.svg" />
+            <span class="flex w-20 text-start">VK</span>
           </a-button>
         </div>
       </div>

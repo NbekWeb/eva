@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      NUXT_PUBLIC_API_URL: process.env.NUXT_PUBLIC_API_URL || '',
+      API_BASE_URL: process.env.API_BASE_URL || '',
     }
   },
   app: {

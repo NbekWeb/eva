@@ -1,16 +1,16 @@
-<script setup lang="ts">
-interface FormData {
-  email: string;
-  password: string;
-}
+<script setup>
+import useAuth from "~/stores/auth.pinia";
 
-const form = reactive<FormData>({
-  email: "",
-  password: "",
+const authPinia = useAuth();
+
+const form = reactive({
+  identifier: "saas@gmail.com",
+  password: "dsdsdsds",
 });
+const formRef = ref(null);
 
-const rules: any = {
-  email: [
+const rules = {
+  identifier: [
     { required: true, message: "Введите почту", trigger: "blur" },
     { type: "email", message: "Некорректный формат почты", trigger: "blur" },
   ],
@@ -24,8 +24,16 @@ const rules: any = {
   ],
 };
 
-const onSubmit = () => {
-  console.log("Form Data:", form);
+const onSubmit = async () => {
+  try {
+    await formRef.value.validate();
+    authPinia.postLogin({ ...form }, () => {
+      form.identifier = "";
+      form.password = "";
+    });
+  } catch {
+    message.error("Пожалуйста, заполните форму корректно!");
+  }
 };
 
 definePageMeta({
@@ -43,13 +51,17 @@ definePageMeta({
 
     <a-form
       layout="vertical"
+      ref="formRef"
       :model="form"
       :rules="rules"
-      @submit.prevent="onSubmit"
+      @finish="onSubmit"
       class="max-w-md mt-4"
     >
-      <a-form-item label="Электронная почта" name="email">
-        <a-input v-model:value="form.email" placeholder="Введите почту" />
+      <a-form-item label="Имя пользователя" name="identifier">
+        <a-input
+          v-model:value="form.identifier"
+          placeholder="Введите имя пользователя"
+        />
       </a-form-item>
 
       <a-form-item label="Пароль" name="password">

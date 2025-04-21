@@ -9,7 +9,7 @@ function close() {
     class="h-[100dvh] max-sm:w-full overflow-y-hidden flex-col flex w-[348px] rounded-r-2xl bg-white relative z-10"
   >
     <div
-      class="flex flex-col pt-10 pb-5 border-b border-gray-300 px-7 gap-14 max-2xl:gap-5 max-2xl:pt-5 max-sm:pt-3 max-sm:px-5"
+      class="flex flex-col gap-10 pt-10 pb-5 border-b border-gray-300 px-7 max-2xl:gap-5 max-2xl:pt-5 max-sm:pt-3 max-sm:px-5"
     >
       <div class="flex items-center justify-between">
         <img src="@/assets/img/logo.svg" class="h-9 max-sm:h-6" />
@@ -51,11 +51,11 @@ function close() {
         <MsgCard />
       </div>
     </div>
-    <div class="flex justify-end px-5 pb-3">
+    <div class="flex justify-end px-5 pb-3 sm:hidden">
       <div class="flex items-center gap-2">
         <span class="text-lg font-semibold text-red-600"> Выход </span>
         <div
-          class="flex items-center justify-center w-8 h-8 text-sm rounded-full logout text-whiting sm:hidden"
+          class="flex items-center justify-center w-8 h-8 text-sm rounded-full logout text-whiting "
         >
           <icon-logout />
         </div>

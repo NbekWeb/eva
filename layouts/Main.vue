@@ -4,9 +4,7 @@ definePageMeta({
 });
 </script>
 <template>
-  <div
-    class="mx-auto bg-gray-200 custom-container px-15 max-xl:px-8 max-md:px-5"
-  >
+  <div class="mx-auto custom-container px-15 max-xl:px-8 max-md:px-5">
     <div
       class="flex items-center justify-between border-b border-gray-500 py-9 max-2xl:py-5 max-sm:py-3"
     >

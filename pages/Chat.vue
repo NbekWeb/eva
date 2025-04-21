@@ -54,7 +54,7 @@ const onClose = () => {
         <mobile-navbar />
       </div>
       <div
-        class="flex flex-col flex-grow gap-5 pb-5 overflow-y-auto px-25 max-2xl:px-15 max-xl:px-8 max-md:px-5"
+        class="relative z-10 flex flex-col flex-grow gap-5 pb-5 overflow-y-auto px-25 max-2xl:px-15 max-xl:px-8 max-md:px-5"
       >
         <message v-for="i in 10" :key="i" />
         <message type="receiver" />

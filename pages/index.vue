@@ -2,6 +2,7 @@
 import { useHead } from "#imports";
 import MobileNavbar from "~/components/MobileNavbar.vue";
 
+
 useHead({
   title: "Главная",
   meta: [
@@ -46,7 +47,7 @@ const closeMenu = () => {
         <div
           class="flex items-center justify-center flex-grow text-2xl font-semibold max-sm:hidden gap-15 max-2xl:text-xl"
         >
-          <nuxt-link to="/"> Главная </nuxt-link>
+          <nuxt-link to="/"> Главная {{ apiBase }} </nuxt-link>
           <nuxt-link to="/chat"> Задать вопрос </nuxt-link>
           <nuxt-link to="/blog"> Блог </nuxt-link>
         </div>

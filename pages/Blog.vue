@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useHead } from "#imports";
+import useBlog from "~/stores/blog.pinia";
+
+const blogPinia = useBlog();
+const { blogs } = storeToRefs(blogPinia);
 
 useHead({
   title: "Blog",
@@ -16,9 +20,9 @@ const totalItems = 45;
 const pageSize = ref(12);
 const currentPage = ref(1);
 
-const blogs = ref(
-  Array.from({ length: totalItems }, (_, i) => ({ id: i + 1 }))
-);
+// const blogs = ref(
+//   Array.from({ length: totalItems }, (_, i) => ({ id: i + 1 }))
+// );
 
 const paginatedBlogs = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value;
@@ -29,10 +33,16 @@ const onPageChange = (page) => {
   currentPage.value = page;
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+onMounted(() => {
+  blogPinia.getBlogs();
+});
 </script>
 
 <template>
-  <div class="mx-auto bg-gray-200 custom-container px-15 max-xl:px-8 max-md:px-5">
+  <div
+    class="mx-auto bg-gray-200 custom-container px-15 max-xl:px-8 max-md:px-5"
+  >
     <div
       class="flex items-center justify-between border-b border-gray-500 py-9 max-2xl:py-5 max-sm:py-3"
     >
@@ -51,7 +61,8 @@ const onPageChange = (page) => {
     <div
       class="grid grid-cols-4 mt-10 max-sm:mt-5 gap-x-15 max-2xl:gap-x-10 gap-y-6 max-xl:gap-x-6 max-xl:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-5"
     >
-      <BlogCard v-for="i in 12" :key="i" />
+      {{ blogs }}
+      <BlogCard v-for="blog in blogs.results" :key="blog.id" />
     </div>
     <div class="flex justify-center py-10">
       <a-pagination
