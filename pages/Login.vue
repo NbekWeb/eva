@@ -33,7 +33,7 @@ const onSubmit = async () => {
     authPinia.postLogin({ ...form }, () => {
       form.identifier = "";
       form.password = "";
-      router.push({name: "home"});
+      router.push('/');
     }
   
   );

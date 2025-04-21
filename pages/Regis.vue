@@ -74,7 +74,7 @@ const onSubmit = async () => {
           form.email = "";
           form.password = "";
           form.password_confirm = "";
-          router.push("/");
+          router.push('/');
         }
       );
     });
