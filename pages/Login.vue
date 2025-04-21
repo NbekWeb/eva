@@ -10,13 +10,11 @@ const form = reactive({
   password: "",
 });
 const formRef = ref(null);
-const link="https://id.vk.com/auth?return_auth_hash=1a73003da5b3dd6b6b&redirect_uri=https%3A%2F%2Feva-three-mu.vercel.app%2Fauth%2Fvk%2Flogin%2Fcallback%2F&redirect_uri_hash=b10f8d7f4b51cbb284&force_hash=&app_id=52982778&response_type=code&code_challenge=&code_challenge_method=&scope=4194304&state="
-
+const link =
+  "https://id.vk.com/auth?return_auth_hash=1a73003da5b3dd6b6b&redirect_uri=https%3A%2F%2Feva-three-mu.vercel.app%2Fauth%2Fvk%2Flogin%2Fcallback%2F&redirect_uri_hash=b10f8d7f4b51cbb284&force_hash=&app_id=52982778&response_type=code&code_challenge=&code_challenge_method=&scope=4194304&state=";
 
 const rules = {
-  identifier: [
-    { required: true, message: "Введите логин", trigger: "blur" },
-  ],
+  identifier: [{ required: true, message: "Введите логин", trigger: "blur" }],
   password: [
     { required: true, message: "Введите пароль", trigger: "blur" },
     // {
@@ -33,13 +31,16 @@ const onSubmit = async () => {
     authPinia.postLogin({ ...form }, () => {
       form.identifier = "";
       form.password = "";
-      router.push('/');
-    }
-  
-  );
+      router.push("/");
+    });
   } catch {
     message.error("Пожалуйста, заполните форму корректно!");
   }
+};
+
+const redirectToVK = () => {
+  window.location.href =
+    "https://id.vk.com/auth?return_auth_hash=1a73003da5b3dd6b6b&redirect_uri=https%3A%2F%2Feva-three-mu.vercel.app%2Fauth%2Fvk%2Flogin%2Fcallback%2F&redirect_uri_hash=b10f8d7f4b51cbb284&force_hash=&app_id=52982778&response_type=code&code_challenge=&code_challenge_method=&scope=4194304&state=";
 };
 
 definePageMeta({
@@ -98,15 +99,14 @@ definePageMeta({
           <img src="@/assets/img/google.svg" class="" />
           <span class="flex w-20 text-start"> Google </span>
         </a-button>
-        <a class="vk" :href="link" >
-          <a-button
-            type="primary"
-            class="flex items-center justify-center w-full gap-3"
-          >
-            <img src="@/assets/img/vk.svg" class="" />
-            <span class="flex w-20 text-start"> VK </span>
-          </a-button>
-        </a>
+        <a-button
+        @click="redirectToVK"
+          type="primary"
+          class="flex items-center justify-center w-full gap-3"
+        >
+          <img src="@/assets/img/vk.svg" class="" />
+          <span class="flex w-20 text-start"> VK </span>
+        </a-button>
       </div>
     </a-form>
   </div>
