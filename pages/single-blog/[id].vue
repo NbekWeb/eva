@@ -19,7 +19,6 @@ useHead({
     { property: "og:description", content: "Open Graph Description" },
   ],
 });
-
 onMounted(() => {
   blogPinia.getBlog(route.params.id);
 });
