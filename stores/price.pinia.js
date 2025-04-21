@@ -7,32 +7,32 @@ import {
 import useCore from '@/stores/core.pinia.js'
 
 
-const useBlog = defineStore('price', {
+const usePrice = defineStore('price', {
     state: () => ({
-        price: [],
+        prices: [],
     }),
     actions: {
         getPrices() {
             const core = useCore()
-            core.loadingUrl.add('blogs/list/')
+            core.loadingUrl.add('prices/')
             api({
-                    url: 'blogs/list/',
+                    url: 'prices/',
                     method: 'GET',
                 })
                 .then(({
                     data
                 }) => {
-                    this.blogs = data
+                    this.prices = data
 
 
                 })
                 .catch(() => {})
                 .finally(() => {
-                    core.loadingUrl.delete('blogs/list/')
+                    core.loadingUrl.delete('prices/')
                 })
         },
     }
 })
 
 
-export default useBlog
+export default usePrice

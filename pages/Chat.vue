@@ -1,5 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import useChat from "@/stores/chat.pinia";
+import { useRouter } from 'vue-router';
+
+const chatPinia = useChat();
+const router=useRouter()
+const { chats } = storeToRefs(chatPinia);
 const text = ref("");
 const open = ref(false);
 
@@ -10,7 +15,29 @@ const toggleOpen = () => {
 const onClose = () => {
   open.value = false;
 };
+function logout(){
+  localStorage.removeItem("access_token");
+  router.push("/")
+}
+
+function goRate(){
+  router.push("/rate")
+}
+onMounted(() => {
+  chatPinia.getChat((data) => {
+    console.log(data, data.length);
+    if (data.length == 0) {
+      // chatPinia.createChat(()=>{
+       
+      // });
+    }
+  });
+//   chatPinia.sendMsg({id:53,message:'sa'},()=>{
+
+// })
+});
 </script>
+
 <template>
   <div class="flex w-full bg-white h-dvh">
     <Sidebar class="max-lg:hidden" />
@@ -21,7 +48,7 @@ const onClose = () => {
       :open="open"
       @close="onClose"
     >
-      <Sidebar @close="onClose" />
+      <Sidebar @close="onClose"  :data="chats"/>
     </a-drawer>
 
     <div class="flex flex-col flex-grow overflow-y-hidden">
@@ -47,7 +74,8 @@ const onClose = () => {
           <nuxt-link to="/blog"> Блог </nuxt-link>
         </div>
         <div
-          class="flex items-center justify-center w-12 h-12 text-xl rounded-full logout text-whiting mr-7 max-2xl:mr-5 max-2xl:w-10 max-2xl:h-10 max-2xl:text-base max-sm:hidden"
+        @click="logout"
+          class="flex items-center hover:cursor-pointer justify-center w-12 h-12 text-xl rounded-full logout text-whiting mr-7 max-2xl:mr-5 max-2xl:w-10 max-2xl:h-10 max-2xl:text-base max-sm:hidden"
         >
           <icon-logout />
         </div>
@@ -56,8 +84,9 @@ const onClose = () => {
       <div
         class="relative z-10 flex flex-col flex-grow gap-5 pb-5 overflow-y-auto px-25 max-2xl:px-15 max-xl:px-8 max-md:px-5"
       >
-        <message v-for="i in 10" :key="i" />
-        <message type="receiver" />
+        <!-- <message v-for="i in 10" :key="i" />
+        <message type="receiver" /> -->
+        <div class="m-auto text-dark-400 font-medium text-4xl">Чем я могу помочь?</div>
       </div>
       <div
         class="flex flex-col gap-3.5 px-25 max-2xl:px-15 pb-12 max-xl:pb-6 max-sm:pb-4 max-xl:px-8 max-md:px-5"
@@ -66,13 +95,16 @@ const onClose = () => {
           class="relative z-10 flex items-center justify-between px-10 py-5 bg-white max-sm:flex-col rounded-3xl shadow-1 max-2xl:px-5 max-sm:p-3 max-sm:rounded-xl max-sm:gap-3"
         >
           <div class="flex flex-col text-gray-400 gap-3.5 max-sm:gap-2">
-            <h4 class="text-xl font-semibold max-sm:text-base">Купить запросы</h4>
+            <h4 class="text-xl font-semibold max-sm:text-base">
+              Купить запросы
+            </h4>
             <p class="text-base max-2xl:text-sm max-sm:text-xs">
               После использования бесплатного запроса пользователь может
               оплатить пакеты запросов
             </p>
           </div>
           <button
+          @click="goRate"
             class="flex items-center justify-center h-12 px-4 text-base text-white max-sm:h-10 max-sm:w-full min-w-max max-xl:text-sm logout rounded-xl hover:opacity-90 max-sm:rounded-md"
           >
             Посмотреть пакеты

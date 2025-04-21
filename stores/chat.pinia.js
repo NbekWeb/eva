@@ -4,29 +4,60 @@ import useCore from "@/stores/core.pinia.js";
 
 const useChat = defineStore("chat", {
   state: () => ({
-    blogs: [],
+    chats: [],
     blog: {},
   }),
   actions: {
-    getChat(params) {
+    getChat(callback) {
       const core = useCore();
-      core.loadingUrl.add("blogs/list/");
+      core.loadingUrl.add("chat");
       api({
-        url: "blogs/list/",
+        url: "chat/message/statistics/",
         method: "GET",
-        params,
       })
         .then(({ data }) => {
-          this.blogs = data;
+          this.chats = data;
+          callback(data)
         })
         .catch(() => {})
         .finally(() => {
-          core.loadingUrl.delete("blogs/list/");
+          core.loadingUrl.delete("chat");
+        });
+    },
+    createChat(callback) {
+      const core = useCore();
+      core.loadingUrl.add("chat");
+      api({
+        url: "chat/create/",
+        method: "POST",
+      })
+        .then(({ data }) => {
+          callback(data)
+        })
+        .catch(() => {})
+        .finally(() => {
+          core.loadingUrl.delete("chat");
+        });
+    },
+    sendMsg(data,callback) {
+      const core = useCore();
+      core.loadingUrl.add("chat");
+      api({
+        url: `chat/${data.id}/`,
+        method: "POST",
+        data
+      })
+        .then(() => {
+          callback()
+        })
+        .catch(() => {})
+        .finally(() => {
+          core.loadingUrl.delete("chat");
         });
     },
     getBlog(id) {
       const core = useCore();
-      core.loadingUrl.add("blogs/list/id");
+      core.loadingUrl.add("chat");
       api({
         url: `blogs/list/${id}/`,
         method: "GET",
@@ -36,10 +67,10 @@ const useChat = defineStore("chat", {
         })
         .catch(() => {})
         .finally(() => {
-          core.loadingUrl.delete("blogs/list/id");
+          core.loadingUrl.delete("chat");
         });
     },
   },
 });
 
-export default useBlog;
+export default useChat;

@@ -1,8 +1,25 @@
 <script setup>
+import { useRouter } from "vue-router";
+import useChat from "~/stores/chat.pinia";
+
+const chatPinia = useChat();
+const { chats } = storeToRefs(chatPinia);
 const emit = defineEmits(["close"]);
+const router = useRouter();
 function close() {
   emit("close");
 }
+
+function logout() {
+  localStorage.removeItem("access_token");
+  router.push("/");
+}
+const props = defineProps({
+  data: {
+    type: Object,
+    default: {},
+  },
+});
 </script>
 <template>
   <div
@@ -18,6 +35,7 @@ function close() {
       <div class="flex items-center gap-2.5 h-10">
         <button
           class="flex hover:opacity-90 rounded-3xl items-center justify-center flex-grow text-lg text-white btn-new gap-2.5 h-full"
+          :class="chats.length == 0 && 'opacity-50 hover:cursor-not-allowed hover:!opacity-50'"
         >
           <IconPlus />
           <span class="text-base">Новый чать</span>
@@ -36,26 +54,21 @@ function close() {
         class="flex items-center justify-between py-5 border-b border-gray-300 px-7 max-sm:px-5"
       >
         <span class="text-xs text-gray-500">Ваши разговоры</span>
-        <span class="text-sm font-semibold text-blue-500 hover:cursor-pointer"
+        <span
+          class="text-sm font-semibold text-blue-500 hover:cursor-pointer"
+          :class="chats.length == 0 && 'opacity-50 hover:cursor-not-allowed'"
           >Очистить все</span
         >
       </div>
       <div class="flex flex-col gap-5 py-5 max-sm:py-2.5 max-sm:gap-2">
-        <MsgCard v-for="i in 10" :key="i" />
-        <MsgCard />
-        <MsgCard />
-        <MsgCard />
-        <MsgCard />
-        <MsgCard />
-        <MsgCard />
-        <MsgCard />
+        <MsgCard v-for="chat in chats" :key="chat.id" />
       </div>
     </div>
     <div class="flex justify-end px-5 pb-3 sm:hidden">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 hover:cursor-pointer" @click="logout">
         <span class="text-lg font-semibold text-red-600"> Выход </span>
         <div
-          class="flex items-center justify-center w-8 h-8 text-sm rounded-full logout text-whiting "
+          class="flex items-center justify-center w-8 h-8 text-sm rounded-full logout text-whiting"
         >
           <icon-logout />
         </div>

@@ -61,11 +61,12 @@ onMounted(() => {
     <div
       class="grid grid-cols-4 mt-10 max-sm:mt-5 gap-x-15 max-2xl:gap-x-10 gap-y-6 max-xl:gap-x-6 max-xl:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-5"
     >
-      {{ blogs }}
-      <BlogCard v-for="blog in blogs.results" :key="blog.id" />
+      <!-- {{ blogs }} -->
+      <BlogCard v-for="blog in blogs.results" :key="blog.id" :data="blog" />
     </div>
     <div class="flex justify-center py-10">
       <a-pagination
+        :hideOnSinglePage="true"
         :current="currentPage"
         :total="blogs.length"
         :page-size="pageSize"

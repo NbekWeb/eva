@@ -2,7 +2,6 @@
 import { useHead } from "#imports";
 import MobileNavbar from "~/components/MobileNavbar.vue";
 
-
 useHead({
   title: "Главная",
   meta: [
@@ -12,7 +11,7 @@ useHead({
     { property: "og:description", content: "Open Graph Description" },
   ],
 });
-
+const router = useRouter();
 const mobileNavbarRef = ref();
 const menuAnimation = ref();
 const open = ref(false);
@@ -30,10 +29,14 @@ const closeMenu = () => {
   openMenu();
   menuAnimation.value.onMenuToggle();
 };
+
+function goChat() {
+  router.push("/chat");
+}
 </script>
 <template>
   <div
-    class="flex flex-col w-full h-[100dvh] overflow-hidden text-white bg-dark-180 "
+    class="flex flex-col w-full h-[100dvh] overflow-hidden text-white bg-dark-180"
   >
     <div
       class="flex flex-col flex-grow h-full mx-auto custom-container px-15 max-xl:px-8 max-md:px-5"
@@ -47,7 +50,7 @@ const closeMenu = () => {
         <div
           class="flex items-center justify-center flex-grow text-2xl font-semibold max-sm:hidden gap-15 max-2xl:text-xl"
         >
-          <nuxt-link to="/"> Главная {{ apiBase }} </nuxt-link>
+          <nuxt-link to="/"> Главная  </nuxt-link>
           <nuxt-link to="/chat"> Задать вопрос </nuxt-link>
           <nuxt-link to="/blog"> Блог </nuxt-link>
         </div>
@@ -74,6 +77,7 @@ const closeMenu = () => {
               nisl eu consectetur. Mi massa elementum odio eu viverra amet.
             </p>
             <button
+              @click="goChat"
               class="px-6 py-4 max-2xl:px-4 text-sm font-bold transition hover:cursor-pointer max-2xl:py-2.5 duration-300 bg-white rounded text-dark-180 hover:bg-white/90 max-lg:max-w-max"
             >
               Задать вопрос

@@ -40,7 +40,7 @@ const useAuth = defineStore("auth", {
           callback();
         })
         .catch((error) => {
-          if (error.response.data.detail) {
+          if (error?.response?.data?.detail) {
             message.error(error.response.data.detail);
           } else {
             message.error("Что-то пошло не так!");

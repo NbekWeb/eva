@@ -1,8 +1,11 @@
 <script setup>
 import { useHead } from "#imports";
 import { useRouter } from "vue-router";
+import usePrice from "~/stores/price.pinia";
 
 const router = useRouter();
+const pricePinia = usePrice();
+const { prices } = storeToRefs(pricePinia);
 
 const close = () => {
   router.push("/chat");
@@ -16,6 +19,10 @@ useHead({
     { property: "og:title", content: "My Nuxt Page" },
     { property: "og:description", content: "Open Graph Description" },
   ],
+});
+
+onMounted(() => {
+  pricePinia.getPrices();
 });
 </script>
 <template>
@@ -38,13 +45,21 @@ useHead({
         <span class="text-blue-100"> получите максимум возможностей! </span>
       </p>
     </div>
-    <div class="flex justify-center gap-10 mt-32 max-2xl:mt-10 max-2xl:gap-5 max-xl:flex-wrap">
-      <rate-card class="mt-12 max-xl:mt-0" />
-      <rate-card type="blue" />
-      <rate-card class="mt-12 max-xl:mt-0" />
+    <div
+      class="flex justify-center gap-10 mt-32 max-2xl:mt-10 max-2xl:gap-5 max-xl:flex-wrap"
+    >
+      <rate-card
+        :class="i % 2 == 0 && 'mt-12 max-xl:mt-0'"
+        :type="i % 2 != 0 ? 'blue' : 'white'"
+        v-for="(price, i) in prices"
+        :key="i"
+        :data="price"
+      />
+      <!-- <rate-card type="blue" />
+      <rate-card class="mt-12 max-xl:mt-0" /> -->
     </div>
     <p
-      class="text-2xl text-dark-200 max-w-[1070px] text-center justify-end mt-auto pt-10 pb-15 max-xl:py-7 max-xl:text-xl max-sm:text-sm"
+      class="text-2xl mx-auto text-dark-200 max-w-[1070px] text-center justify-end mt-auto pt-10 pb-15 max-xl:py-7 max-xl:text-xl max-sm:text-sm"
     >
       <span class="font-medium text-blue-100">Ева</span> — это инновационный
       онлайн-сервис, который помогает пользователям получать ответы на вопросы,

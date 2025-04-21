@@ -31,7 +31,7 @@ const useBlog = defineStore("blog", {
         method: "GET",
       })
         .then(({ data }) => {
-          this.directory = data;
+          this.blog = data;
         })
         .catch(() => {})
         .finally(() => {
