@@ -11,7 +11,7 @@ export default defineNuxtRouteMiddleware((to) => {
         return;
     }
 
-    if (!accessToken) {
-        return navigateTo("/login");
-    }
+    // if (!accessToken) {
+    //     return navigateTo("/login");
+    // }
 });
