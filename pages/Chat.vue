@@ -86,7 +86,7 @@ onMounted(() => {
       >
         <!-- <message v-for="i in 10" :key="i" />
         <message type="receiver" /> -->
-        <div class="m-auto text-dark-400 font-medium text-4xl">Чем я могу помочь?</div>
+        <div class="flex justify-center items-center max-md:text-3xl text-center h-full text-dark-400 font-medium text-4xl">Чем я могу помочь?</div>
       </div>
       <div
         class="flex flex-col gap-3.5 px-25 max-2xl:px-15 pb-12 max-xl:pb-6 max-sm:pb-4 max-xl:px-8 max-md:px-5"
