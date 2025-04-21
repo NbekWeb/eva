@@ -55,7 +55,7 @@ const useAuth = defineStore("auth", {
       const core = useCore();
       core.loadingUrl.add("account/auth/check/vk/");
       api({
-        url: "account/auth/check/vk/",
+        url: "accounts/auth/check/vk/",
         method: "POST",
         data,
       })
@@ -80,7 +80,7 @@ const useAuth = defineStore("auth", {
       const core = useCore();
       core.loadingUrl.add("account/auth/vk/");
       api({
-        url: "account/auth/vk/",
+        url: "accounts/auth/vk/",
         method: "POST",
         data,
       })
