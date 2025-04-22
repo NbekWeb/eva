@@ -32,14 +32,14 @@ const useChat = defineStore("chat", {
         method: "POST",
       })
         .then(({ data }) => {
-          callback(data)
+          callback(data.id)
         })
         .catch(() => {})
         .finally(() => {
           core.loadingUrl.delete("chat");
         });
     },
-    sendMsg(data,callback) {
+    sendMsg(data,callback,errorCallback) {
       const core = useCore();
       core.loadingUrl.add("chat");
       api({
@@ -50,7 +50,10 @@ const useChat = defineStore("chat", {
         .then(() => {
           callback()
         })
-        .catch(() => {})
+        .catch((error) => {
+          message.error(error.response.data.message)
+          errorCallback()
+        })
         .finally(() => {
           core.loadingUrl.delete("chat");
         });

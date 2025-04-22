@@ -1,9 +1,9 @@
 <script setup>
 import useChat from "@/stores/chat.pinia";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const chatPinia = useChat();
-const router=useRouter()
+const router = useRouter();
 const { chats } = storeToRefs(chatPinia);
 const text = ref("");
 const open = ref(false);
@@ -15,26 +15,59 @@ const toggleOpen = () => {
 const onClose = () => {
   open.value = false;
 };
-function logout(){
+function logout() {
   localStorage.removeItem("access_token");
-  router.push("/")
+  router.push("/");
 }
 
-function goRate(){
-  router.push("/rate")
+function goRate() {
+  router.push("/rate");
+}
+function sendMsg() {
+  if (text.value.length > 0) {
+    if (!router.currentRoute.value.query.chat) {
+      chatPinia.createChat((id) => {
+        router.replace({
+          path: router.currentRoute.value.path,
+          query: {
+            ...router.currentRoute.value.query,
+            chat: id,
+          },
+        });
+        chatPinia.sendMsg(
+          { id, message: text.value },
+          () => {
+            text.value = "";
+          },
+          () => {
+            router.push("/rate");
+          }
+        );
+      });
+    } else {
+      chatPinia.sendMsg(
+        { id: router.currentRoute.value.query.chat, message: text.value },
+        () => {
+          text.value = "";
+        },
+        () => {
+          router.push("/rate");
+        }
+      );
+    }
+  }
 }
 onMounted(() => {
   chatPinia.getChat((data) => {
     console.log(data, data.length);
     if (data.length == 0) {
       // chatPinia.createChat(()=>{
-       
       // });
     }
   });
-//   chatPinia.sendMsg({id:53,message:'sa'},()=>{
+  //   chatPinia.sendMsg({id:53,message:'sa'},()=>{
 
-// })
+  // })
 });
 </script>
 
@@ -48,7 +81,7 @@ onMounted(() => {
       :open="open"
       @close="onClose"
     >
-      <Sidebar @close="onClose"  :data="chats"/>
+      <Sidebar @close="onClose" :data="chats" />
     </a-drawer>
 
     <div class="flex flex-col flex-grow overflow-y-hidden">
@@ -74,7 +107,7 @@ onMounted(() => {
           <nuxt-link to="/blog"> Блог </nuxt-link>
         </div>
         <div
-        @click="logout"
+          @click="logout"
           class="flex items-center hover:cursor-pointer justify-center w-12 h-12 text-xl rounded-full logout text-whiting mr-7 max-2xl:mr-5 max-2xl:w-10 max-2xl:h-10 max-2xl:text-base max-sm:hidden"
         >
           <icon-logout />
@@ -86,7 +119,11 @@ onMounted(() => {
       >
         <!-- <message v-for="i in 10" :key="i" />
         <message type="receiver" /> -->
-        <div class="flex justify-center items-center max-md:text-3xl text-center h-full text-dark-400 font-medium text-4xl">Чем я могу помочь?</div>
+        <div
+          class="flex justify-center items-center max-md:text-3xl text-center h-full text-dark-400 font-medium text-4xl"
+        >
+          Чем я могу помочь?
+        </div>
       </div>
       <div
         class="flex flex-col gap-3.5 px-25 max-2xl:px-15 pb-12 max-xl:pb-6 max-sm:pb-4 max-xl:px-8 max-md:px-5"
@@ -104,7 +141,7 @@ onMounted(() => {
             </p>
           </div>
           <button
-          @click="goRate"
+            @click="goRate"
             class="flex items-center justify-center h-12 px-4 text-base text-white max-sm:h-10 max-sm:w-full min-w-max max-xl:text-sm logout rounded-xl hover:opacity-90 max-sm:rounded-md"
           >
             Посмотреть пакеты
@@ -121,6 +158,7 @@ onMounted(() => {
           />
 
           <button
+            @click="sendMsg"
             class="flex items-center justify-center w-12 h-12 text-xl rounded-full min-w-12 send text-whiting hover:opacity-90"
           >
             <IconSend />
