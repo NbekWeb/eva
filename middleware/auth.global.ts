@@ -12,6 +12,7 @@ export default defineNuxtRouteMiddleware((to) => {
     }
 
     if (!accessToken && to.path !== "/auth/vk/login/callback") {
+        console.log(to.path)
         // return navigateTo("/login");
     }
 });
