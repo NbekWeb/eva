@@ -46,8 +46,8 @@ function sendMsg() {
   };
   chat.value?.message_list.unshift(newMsg);
   setTimeout(() => {
-      messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-    }, 100);
+    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
+  }, 100);
 
   if (text.value.length > 0 && !loading.value) {
     loading.value = true;
@@ -187,7 +187,11 @@ onMounted(() => {
               :key="i"
             >
               <message :data="item?.question" />
-              <message :data="item?.answer?.answer" type="reciever" :loading="item?.answer?.loading" />
+              <message
+                :data="item?.answer?.answer"
+                type="reciever"
+                :loading="item?.answer?.loading"
+              />
             </template>
           </template>
         </div>
@@ -265,5 +269,4 @@ onMounted(() => {
   padding: 0 !important;
   overflow-y: hidden !important;
 }
-
 </style>
