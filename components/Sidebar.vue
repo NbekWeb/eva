@@ -10,6 +10,12 @@ function close() {
   emit("close");
 }
 
+function newChat() {
+  router.push({
+    path: '/chat'
+  });
+  close()
+}
 function logout() {
   localStorage.removeItem("access_token");
   router.push("/");
@@ -33,12 +39,10 @@ const props = defineProps({
         <IconClose class="text-xl text-dark-200 sm:hidden" @click="close" />
       </div>
       <div class="flex items-center gap-2.5 h-10">
-        <button
+        <button 
+        @click="newChat"
           class="flex hover:opacity-90 rounded-3xl items-center justify-center flex-grow text-lg text-white btn-new gap-2.5 h-full"
-          :class="
-            chats.length == 0 &&
-            'opacity-50 hover:cursor-not-allowed hover:!opacity-50'
-          "
+          
         >
           <IconPlus />
           <span class="text-base">Новый чать</span>

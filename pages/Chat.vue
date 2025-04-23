@@ -44,7 +44,14 @@ function sendMsg() {
       loading: true,
     },
   };
-  chat.value?.message_list.unshift(newMsg);
+
+  if (!chat.value?.message_list) {
+    chat.value = {
+      message_list: [newMsg], // 👈 directly assign the first message here
+    };
+  } else {
+    chat.value.message_list.unshift(newMsg); // 👈 otherwise just unshift normally
+  }
   setTimeout(() => {
     messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
   }, 100);
