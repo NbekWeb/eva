@@ -98,9 +98,9 @@ const useAuth = defineStore("auth", {
     },
     postGoogle(data, callback, erorCallback) {
       const core = useCore();
-      core.loadingUrl.add("account/auth/vk/");
+      core.loadingUrl.add("google/");
       api({
-        url: "accounts/auth/vk/",
+        url: "accounts/auth/google//",
         method: "POST",
         data,
       })
@@ -113,22 +113,20 @@ const useAuth = defineStore("auth", {
           message.error("Что-то пошло не так!");
         })
         .finally(() => {
-          core.loadingUrl.delete("account/auth/check/vk/");
+          core.loadingUrl.delete("google/");
         });
     },
-    getGoogle( callback) {
+    getGoogle(callback) {
       const core = useCore();
       core.loadingUrl.add("google/");
       api({
         url: "accounts/auth/google/",
         method: "GET",
-       
       })
         .then(({ data }) => {
-          callback(data);
+          callback(data.auth_url);
         })
-        .catch((error) => {
-        })
+        .catch((error) => {})
         .finally(() => {
           core.loadingUrl.delete("google");
         });

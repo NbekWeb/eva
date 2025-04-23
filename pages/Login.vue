@@ -44,8 +44,9 @@ const redirectToVK = () => {
 };
 
 const redirectGoogle = () => {
-  window.location.href =
-    "https://accounts.google.com/o/oauth2/auth?client_id=955527471594-q2punvm0vtq2uk2dem10rfuef2v5hsto.apps.googleusercontent.com&redirect_uri=https://eva-three-mu.vercel.app/api/auth/google/callback/&response_type=code&scope=openid";
+  authPinia.getGoogle((url) => {
+    window.location.href = url;
+  });
 };
 
 definePageMeta({

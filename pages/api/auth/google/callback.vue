@@ -56,14 +56,14 @@ onMounted(() => {
   if (!!token) {
     router.push("/");
   }
-  authPinia.postLoginGoogle(
-    { callback_url: callback_url.value },
+  authPinia.postGoogle(
+    { code: callback_url.value },
     () => {
       message.success("Успешный вход!");
       router.push("/");
     },
     () => {
-      // router.push("/login");
+    //   router.push("/login");
     }
   );
 });
