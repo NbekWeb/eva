@@ -43,6 +43,11 @@ const redirectToVK = () => {
     "https://id.vk.com/auth?return_auth_hash=1a73003da5b3dd6b6b&redirect_uri=https%3A%2F%2Feva-three-mu.vercel.app%2Fauth%2Fvk%2Flogin%2Fcallback%2F&redirect_uri_hash=b10f8d7f4b51cbb284&force_hash=&app_id=52982778&response_type=code&code_challenge=&code_challenge_method=&scope=4194304&state=";
 };
 
+const redirectGoogle = () => {
+  window.location.href =
+    "https://accounts.google.com/o/oauth2/auth?client_id=955527471594-q2punvm0vtq2uk2dem10rfuef2v5hsto.apps.googleusercontent.com&redirect_uri=https://eva-three-mu.vercel.app/api/auth/google/callback/&response_type=code&scope=openid";
+};
+
 definePageMeta({
   layout: "auth",
 });
@@ -95,12 +100,15 @@ definePageMeta({
           ><span>или</span
           ><span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span>
         </div>
-        <a-button class="flex items-center justify-center w-full gap-3">
+        <a-button
+          @click="redirectGoogle"
+          class="flex items-center justify-center w-full gap-3"
+        >
           <img src="@/assets/img/google.svg" class="" />
           <span class="flex w-20 text-start"> Google </span>
         </a-button>
         <a-button
-        @click="redirectToVK"
+          @click="redirectToVK"
           type="primary"
           class="flex items-center justify-center w-full gap-3"
         >
