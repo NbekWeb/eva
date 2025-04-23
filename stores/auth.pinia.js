@@ -100,7 +100,7 @@ const useAuth = defineStore("auth", {
       const core = useCore();
       core.loadingUrl.add("google/");
       api({
-        url: "accounts/auth/google//",
+        url: "accounts/auth/google/",
         method: "POST",
         data,
       })
