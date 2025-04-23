@@ -197,7 +197,6 @@ onMounted(() => {
               <message
                 :data="item?.answer?.answer"
                 type="reciever"
-                :loading="item?.answer?.loading"
               />
             </template>
           </template>

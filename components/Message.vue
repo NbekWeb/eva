@@ -8,10 +8,6 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
 });
 </script>
 <template>
@@ -22,7 +18,7 @@ const props = defineProps({
       :class="type == 'send' && 'order-first'"
     >
       {{ data }}
-      <div v-if="loading" class="dots-loader">
+      <div v-if="!data" class="dots-loader">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
