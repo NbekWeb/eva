@@ -11,12 +11,13 @@ const form = reactive({
   password: "",
 });
 const formRef = ref(null);
-const callback_url = computed(() => {
-  if (typeof window !== "undefined") {
-    return new URL(route.fullPath, window.location.origin).href;
+const code = computed(() => {
+  if (typeof window !== 'undefined') {
+    const url = new URL(route.fullPath, window.location.origin)
+    return url.searchParams.get('code') || ''
   }
-  return "";
-});
+  return ''
+})
 const rules = {
   identifier: [{ required: true, message: "Введите логин", trigger: "blur" }],
   password: [
@@ -57,7 +58,7 @@ onMounted(() => {
     router.push("/");
   }
   authPinia.postGoogle(
-    { code: callback_url.value },
+    { code: code.value },
     () => {
       message.success("Успешный вход!");
       router.push("/");
