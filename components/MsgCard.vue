@@ -1,10 +1,31 @@
 <script setup>
 const isDropdownOpen = ref(false);
+const emit = defineEmits(["close"]);
+const router = useRouter();
+function close() {
+  emit("close");
+}
 const handleScroll = () => {
   if (isDropdownOpen.value) {
     isDropdownOpen.value = false;
   }
 };
+
+const props = defineProps({
+  data: {
+    type: Object,
+    default: {},
+  },
+});
+
+function goChat(id) {
+  router.push({
+    path: router.currentRoute.value.path,
+    query: { ...router.currentRoute.value.query, chat: id },
+  });
+  close()
+
+}
 
 onMounted(() => {
   const scrollContainer = document.querySelector(".scroll-container");
@@ -18,11 +39,12 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <div
+    @click="goChat(data.id)"
     class="relative flex items-center h-10 pr-3 overflow-x-hidden transition duration-300 max-sm:px-5 pl-7 group hover:bg-blue-600/15 hover:cursor-pointer"
     :class="isDropdownOpen && 'bg-blue-600/15'"
   >
-    <div class="flex items-center justify-between gap-2">
-      <div class="flex items-center  gap-2.5 text-base ">
+    <div class="flex items-center justify-between gap-2 w-full">
+      <div class="flex items-center gap-2.5 text-base">
         <IconMsg
           class="transition duration-300 text-dark-100 min-w-max group-hover:text-blue-100"
           :class="isDropdownOpen && 'text-blue-100'"
@@ -31,12 +53,10 @@ onBeforeUnmount(() => {
           class="flex text-gray-400 transition duration-300 limit-1 group-hover:text-blue-100"
           :class="isDropdownOpen && 'text-blue-100'"
         >
-          Какие продукты помогут d sa  da s сниз ss sa a a итуровень сахара в крови? Какие
-          продукты помогут снизитуровень сахара в крови?
+          {{ data?.first_msg?.question }}
         </p>
       </div>
-      <div class="max-sm:hidden">
-        
+      <div class="">
         <a-dropdown
           :open="isDropdownOpen"
           @openChange="(val) => (isDropdownOpen = val)"

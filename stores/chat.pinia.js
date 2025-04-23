@@ -5,19 +5,19 @@ import useCore from "@/stores/core.pinia.js";
 const useChat = defineStore("chat", {
   state: () => ({
     chats: [],
-    blog: {},
+    chat: {},
   }),
   actions: {
-    getChat(callback) {
+    getChats(callback) {
       const core = useCore();
       core.loadingUrl.add("chat");
       api({
-        url: "chat/message/statistics/",
+        url: "chat/chat_history/statistics/",
         method: "GET",
       })
         .then(({ data }) => {
           this.chats = data;
-          callback(data)
+          callback(data);
         })
         .catch(() => {})
         .finally(() => {
@@ -32,45 +32,63 @@ const useChat = defineStore("chat", {
         method: "POST",
       })
         .then(({ data }) => {
-          callback(data.id)
+          callback(data.id);
         })
         .catch(() => {})
         .finally(() => {
           core.loadingUrl.delete("chat");
         });
     },
-    sendMsg(data,callback,errorCallback) {
+    sendMsg(data, callback, errorCallback) {
       const core = useCore();
       core.loadingUrl.add("chat");
       api({
         url: `chat/${data.id}/`,
         method: "POST",
-        data
+        data,
       })
-        .then(() => {
-          callback()
+        .then(({ data }) => {
+          callback(data.message_id);
         })
         .catch((error) => {
-          message.error(error.response.data.message)
-          errorCallback()
+          message.error(error.response.data.message);
+          errorCallback();
         })
         .finally(() => {
           core.loadingUrl.delete("chat");
         });
     },
-    getBlog(id) {
+    getChat(id,callback=()=>{}) {
       const core = useCore();
       core.loadingUrl.add("chat");
       api({
-        url: `blogs/list/${id}/`,
+        url: `chat/detail/${id}/`,
         method: "GET",
       })
         .then(({ data }) => {
-          this.directory = data;
+          this.chat = data;
+          callback()
         })
         .catch(() => {})
         .finally(() => {
           core.loadingUrl.delete("chat");
+        });
+    },
+    postAnswer(id,callback) {
+      const core = useCore();
+      core.loadingUrl.add("chat/answer");
+      api({
+        url: `chat/message/answer/${id}/`,
+        method: "GET",
+      })
+        .then(() => {
+          callback()
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+        })
+        .finally(() => {
+          core.loadingUrl.delete("chat/answer");
         });
     },
   },

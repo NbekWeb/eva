@@ -23,7 +23,7 @@ const props = defineProps({
 </script>
 <template>
   <div
-    class="h-[100dvh] max-sm:w-full overflow-y-hidden flex-col flex w-[348px] rounded-r-2xl bg-white relative z-10"
+    class="h-[100dvh] max-sm:w-[90vw] max-sm:min-w-[90vw] overflow-y-hidden flex-col flex sm:min-w-[348px] sm:w-[348px] rounded-r-2xl bg-white relative z-10"
   >
     <div
       class="flex flex-col gap-10 pt-10 pb-5 border-b border-gray-300 px-7 max-2xl:gap-5 max-2xl:pt-5 max-sm:pt-3 max-sm:px-5"
@@ -35,7 +35,10 @@ const props = defineProps({
       <div class="flex items-center gap-2.5 h-10">
         <button
           class="flex hover:opacity-90 rounded-3xl items-center justify-center flex-grow text-lg text-white btn-new gap-2.5 h-full"
-          :class="chats.length == 0 && 'opacity-50 hover:cursor-not-allowed hover:!opacity-50'"
+          :class="
+            chats.length == 0 &&
+            'opacity-50 hover:cursor-not-allowed hover:!opacity-50'
+          "
         >
           <IconPlus />
           <span class="text-base">Новый чать</span>
@@ -60,8 +63,21 @@ const props = defineProps({
           >Очистить все</span
         >
       </div>
-      <div class="flex flex-col gap-5 py-5 max-sm:py-2.5 max-sm:gap-2">
-        <MsgCard v-for="chat in chats" :key="chat.id" />
+      <div class="flex flex-col">
+        <!-- <div class="p-5 border-b border-t border-gray-300 text-gray-600">
+            Сегодня
+          </div> -->
+        <div class="flex flex-col gap-5 max-sm:py-2.5 max-sm:gap-2" v-if="chats?.[0]?.today?.length > 0">
+          <MsgCard v-for="chat in chats?.[0]?.today" :key="chat.id" :data="chat" @close="close"  />
+        </div>
+        <div v-if="chats?.[0]?.yesterday?.length > 0">
+          <div class="p-5 border-b border-t border-gray-300 text-gray-600">
+            Вчера
+          </div>
+          <div class="flex flex-col gap-5 max-sm:gap-2">
+            <MsgCard v-for="chat in chats?.[0]?.yesterday" :key="chat.id" :data="chat" @close="close" />
+          </div>
+        </div>
       </div>
     </div>
     <div class="flex justify-end px-5 pb-3 sm:hidden">
