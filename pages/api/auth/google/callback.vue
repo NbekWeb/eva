@@ -64,7 +64,7 @@ onMounted(() => {
       router.push("/");
     },
     () => {
-    //   router.push("/login");
+      router.push("/login");
     }
   );
 });
