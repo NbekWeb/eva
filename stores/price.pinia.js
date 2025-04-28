@@ -27,7 +27,7 @@ const usePrice = defineStore("price", {
       core.loadingUrl.add("check-payment/");
       api({
         url: `/prices/check-payment/${payment_id}/${order_id}/`,
-        method: "GET",
+        method: "POST",
       })
         .then(({}) => {
           callback();
