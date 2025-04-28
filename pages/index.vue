@@ -39,14 +39,20 @@ function goChat() {
   router.push("/chat");
 }
 
+function clear(){
+  localStorage.removeItem("payment_id");
+  localStorage.removeItem("order_id");
+}
+
 onMounted(() => {
   const payment_id = localStorage.getItem("payment_id");
   const order_id = localStorage.getItem("order_id");
   console.log(payment_id);
   if (payment_id && order_id) {
     pricePinia.getSucces(payment_id, order_id, () => {
-      localStorage.removeItem("payment_id");
-      localStorage.removeItem("order_id");
+     
+    },()=>{
+      clear()
     });
   }
 });

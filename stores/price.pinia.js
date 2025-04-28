@@ -22,7 +22,7 @@ const usePrice = defineStore("price", {
           core.loadingUrl.delete("prices/");
         });
     },
-    getSucces(payment_id, order_id, callback) {
+    getSucces(payment_id, order_id, callback, erorCallback) {
       const core = useCore();
       core.loadingUrl.add("check-payment/");
       api({
@@ -35,6 +35,7 @@ const usePrice = defineStore("price", {
         .catch(() => {})
         .finally(() => {
           core.loadingUrl.delete("check-payment/");
+          erorCallback();
         });
     },
     postPrice(id, callback) {
