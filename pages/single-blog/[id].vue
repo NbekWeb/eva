@@ -50,10 +50,10 @@ onMounted(() => {
         >
           {{ blog.title }}
         </h2>
-        <img :src="blog.images?.[0]?.image" class="w-full h-auto" />
+        <img :src="blog.images?.[0]?.image" class="w-full max-h-[450px] object-cover max-lg:max-h-[350px] max-sm:max-h-[250px]" />
         <div
           v-html="blog.description"
-          class="mt-10 max-2xl:mt-6 max-xl:mt-3"
+          class="mt-10 max-2xl:mt-6 max-sm:mt-3"
         ></div>
       </div>
     </a-spin>

@@ -19,26 +19,27 @@ useHead({
   ],
 });
 
-const totalItems = 45;
-const pageSize = ref(12);
+const totalItems = ref(0);
+const pageSize = ref(6);
 const currentPage = ref(1);
 
-// const blogs = ref(
-//   Array.from({ length: totalItems }, (_, i) => ({ id: i + 1 }))
-// );
-
-const paginatedBlogs = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value;
-  return blogs.value.slice(start, start + pageSize.value);
-});
+function getAll() {
+  blogPinia.getBlogs(
+    { limit: pageSize.value, page: currentPage.value },
+    (data) => {
+      totalItems.value = data.count;
+    }
+  );
+}
 
 const onPageChange = (page) => {
   currentPage.value = page;
+  getAll()
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 onMounted(() => {
-  blogPinia.getBlogs();
+  getAll();
 });
 </script>
 
@@ -71,7 +72,7 @@ onMounted(() => {
         <a-pagination
           :hideOnSinglePage="true"
           :current="currentPage"
-          :total="blogs.length"
+          :total="totalItems"
           :page-size="pageSize"
           @change="onPageChange"
         />

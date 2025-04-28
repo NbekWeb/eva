@@ -8,15 +8,17 @@ const useBlog = defineStore("blog", {
     blog: {},
   }),
   actions: {
-    getBlogs() {
+    getBlogs(params,callback) {
       const core = useCore();
       core.loadingUrl.add("blogs/");
       api({
         url: "blogs/",
         method: "GET",
+        params,
       })
         .then(({ data }) => {
           this.blogs = data;
+          callback(data)
         })
         .catch(() => {})
         .finally(() => {
