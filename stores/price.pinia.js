@@ -30,9 +30,12 @@ const usePrice = defineStore("price", {
         method: "POST",
       })
         .then(({}) => {
+          message.success("Платеж был успешным!");
           callback();
         })
-        .catch(() => {})
+        .catch(() => {
+          message.error("Произошла ошибка при проверке платежа!");
+        })
         .finally(() => {
           core.loadingUrl.delete("check-payment/");
           erorCallback();
