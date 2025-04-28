@@ -22,7 +22,22 @@ const usePrice = defineStore("price", {
           core.loadingUrl.delete("prices/");
         });
     },
-    postPrice(id,callback) {
+    getSucces(payment_id, order_id, callback) {
+      const core = useCore();
+      core.loadingUrl.add("check-payment/");
+      api({
+        url: `/prices/check-payment/${payment_id}/${order_id}/`,
+        method: "GET",
+      })
+        .then(({}) => {
+          callback();
+        })
+        .catch(() => {})
+        .finally(() => {
+          core.loadingUrl.delete("check-payment/");
+        });
+    },
+    postPrice(id, callback) {
       const core = useCore();
       core.loadingUrl.add("/prices/payment/init/");
       api({

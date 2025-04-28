@@ -14,8 +14,10 @@ const props = defineProps({
 });
 
 function buy() {
-  pricePinia.postPrice(props.data.id, (item) => {
-    window.location.href = item.payment_url;
+  pricePinia.postPrice(props.data.id, (data) => {
+    localStorage.setItem("payment_id", data.payment_id);
+    localStorage.setItem("order_id", data.order_id);
+    window.location.href = data.payment_url;
   });
 }
 </script>
