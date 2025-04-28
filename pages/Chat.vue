@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 
 const chatPinia = useChat();
 const corePinia = useCore();
+
 const { loadingUrl } = storeToRefs(corePinia);
 
 const router = useRouter();
@@ -118,6 +119,7 @@ watch(
 );
 onMounted(() => {
   chatPinia.getChats(() => {});
+
 });
 </script>
 
