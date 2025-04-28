@@ -47,10 +47,10 @@ function sendMsg() {
 
   if (!chat.value?.message_list) {
     chat.value = {
-      message_list: [newMsg], // 👈 directly assign the first message here
+      message_list: [newMsg],
     };
   } else {
-    chat.value.message_list.unshift(newMsg); // 👈 otherwise just unshift normally
+    chat.value.message_list.unshift(newMsg);
   }
   setTimeout(() => {
     messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
@@ -124,9 +124,10 @@ onMounted(() => {
 <template>
   <a-spin
     :spinning="
-      loadingUrl.has('chats') ||
-      loadingUrl.has('chat') ||
-      loadingUrl.has('chat/answer')
+      (loadingUrl.has('chats') ||
+        loadingUrl.has('chat') ||
+        loadingUrl.has('chat/answer')) &&
+      !loading
     "
   >
     <div class="flex w-full bg-white h-dvh">
@@ -194,10 +195,7 @@ onMounted(() => {
               :key="i"
             >
               <message :data="item?.question" />
-              <message
-                :data="item?.answer?.answer"
-                type="reciever"
-              />
+              <message :data="item?.answer?.answer" type="reciever" />
             </template>
           </template>
         </div>

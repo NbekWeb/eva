@@ -74,13 +74,19 @@ const onSubmit = async () => {
           form.email = "";
           form.password = "";
           form.password_confirm = "";
-          router.push('/');
+          router.push("/");
         }
       );
     });
   } catch {
     message.error("Пожалуйста, заполните форму корректно!");
   }
+};
+
+const redirectGoogle = () => {
+  authPinia.getGoogle((url) => {
+    window.location.href = url;
+  });
 };
 
 definePageMeta({
@@ -150,7 +156,10 @@ definePageMeta({
           <span class="flex-grow flex h-[1px] bg-blue-300 opacity-20"></span>
         </div>
 
-        <a-button class="flex items-center justify-center w-full gap-3">
+        <a-button
+          @click="redirectGoogle"
+          class="flex items-center justify-center w-full gap-3"
+        >
           <img src="@/assets/img/google.svg" />
           <span class="flex w-20 text-start">Google</span>
         </a-button>

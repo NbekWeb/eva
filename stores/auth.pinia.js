@@ -131,6 +131,22 @@ const useAuth = defineStore("auth", {
           core.loadingUrl.delete("google");
         });
     },
+    getVk(callback) {
+      const core = useCore();
+      core.loadingUrl.add("vk");
+      api({
+        url: "accounts/auth/vk/sign-in-url/",
+        method: "GET",
+      })
+        .then(({ data }) => {
+          callback(data.sign_in_url);
+        })
+        .catch((error) => {})
+        .finally(() => {
+          core.loadingUrl.delete("vk");
+        });
+    },
+    
   },
 });
 

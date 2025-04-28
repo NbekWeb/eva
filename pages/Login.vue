@@ -39,8 +39,9 @@ const onSubmit = async () => {
 };
 
 const redirectToVK = () => {
-  window.location.href =
-    "https://id.vk.com/auth?return_auth_hash=1a73003da5b3dd6b6b&redirect_uri=https%3A%2F%2Feva-three-mu.vercel.app%2Fauth%2Fvk%2Flogin%2Fcallback%2F&redirect_uri_hash=b10f8d7f4b51cbb284&force_hash=&app_id=52982778&response_type=code&code_challenge=&code_challenge_method=&scope=4194304&state=";
+  authPinia.getVk((url) => {
+    window.location.href = url;
+  });
 };
 
 const redirectGoogle = () => {
