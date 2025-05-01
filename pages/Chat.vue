@@ -45,8 +45,10 @@ function sendMsg() {
       loading: true,
     },
   };
+  let empty=false
 
   if (!chat.value?.message_list) {
+    empty=true
     chat.value = {
       message_list: [newMsg],
     };
@@ -77,6 +79,7 @@ function sendMsg() {
                 chatPinia.getChat(router.currentRoute.value.query.chat, () => {
                   loading.value = false;
                   scrollToBottom();
+                  chatPinia.getChats(() => {});
                 });
               }, 5000);
             });
@@ -231,6 +234,7 @@ onMounted(() => {
               v-model:value="text"
               placeholder="Задайте вопрос..."
               auto-size
+               @keydown.enter.exact.prevent="sendMsg"
             />
 
             <button

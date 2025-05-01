@@ -11,10 +11,10 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="grid w-full grid-cols-2 gap-20">
+  <div class="grid w-full grid-cols-2 gap-20 max-lg:gap-10 max-md:gap-5 max-sm:grid-cols-5">
     <div class=""></div>
     <div
-      class="relative z-10 p-5 text-base bg-white rounded-3xl msg"
+      class="relative z-10 p-5 text-base bg-white rounded-3xl msg max-sm:col-span-4"
       :class="type == 'send' && 'order-first'"
     >
       {{ data }}
