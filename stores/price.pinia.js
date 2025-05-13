@@ -22,12 +22,13 @@ const usePrice = defineStore("price", {
           core.loadingUrl.delete("prices/");
         });
     },
-    getSucces(payment_id, order_id, callback, erorCallback) {
+    getSucces(data, callback, erorCallback) {
       const core = useCore();
       core.loadingUrl.add("check-payment/");
       api({
-        url: `/prices/check-payment/${payment_id}/${order_id}/`,
+        url: `/prices/check-payment/`,
         method: "POST",
+        data
       })
         .then(({}) => {
           message.success("Платеж был успешным!");

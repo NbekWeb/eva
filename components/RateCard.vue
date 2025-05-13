@@ -1,7 +1,7 @@
 <script setup>
 import usePrice from "~/stores/price.pinia";
 
-const pricePinia=usePrice()
+const pricePinia = usePrice();
 const props = defineProps({
   type: {
     type: String,
@@ -15,9 +15,10 @@ const props = defineProps({
 
 function buy() {
   pricePinia.postPrice(props.data.id, (data) => {
+    window.open(data.payment_url, "_blank");
     localStorage.setItem("payment_id", data.payment_id);
     localStorage.setItem("order_id", data.order_id);
-    window.location.href = data.payment_url;
+    localStorage.setItem("customer_key", data.customer_key);
   });
 }
 </script>
