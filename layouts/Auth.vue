@@ -4,11 +4,13 @@
     <div class="flex flex-col items-center justify-center max-h-full">
       <nuxt-page />
     </div>
-    <div class="relative w-full max-lg:hidden">
+    <div
+      class="relative w-full max-lg:hidden bg-white flex items-center justify-center"
+    >
       <img
-        src="~/assets/img/auth.png"
-        class="fixed top-0 right-0 object-cover w-1/2 h-screen rounded-l-3xl"
-         loading="lazy"
+        src="~/assets/img/auth.jpg"
+        class="object-contain w-auto h-1/2"
+        loading="lazy"
       />
     </div>
   </div>
