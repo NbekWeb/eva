@@ -18,7 +18,7 @@ function buy() {
     localStorage.setItem("payment_id", data.payment_id);
     localStorage.setItem("order_id", data.order_id);
     localStorage.setItem("customer_key", data.customer_key);
-    window.open(data.payment_url, "_blank");
+    window.open(data.payment_url);
   });
 }
 </script>
