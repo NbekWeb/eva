@@ -100,8 +100,7 @@ onMounted(() => {
               <p
                 class="text-base text-gray-100 my-9 max-2xl:my-6 max-lg:text-center max-sm:my-6 max-sm:text-sm"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nunc
-                nisl eu consectetur. Mi massa elementum odio eu viverra amet.
+     Ниже Просто задайте вопрос, и Ева подскажет, как заботиться о своем здоровье, улучшить самочувствие и повысить качество жизни
               </p>
               <button
                 @click="goChat"
@@ -117,7 +116,7 @@ onMounted(() => {
                 <span
                   class="text-5xl font-medium text-whiting max-2xl:text-3xl"
                 >
-                  9999
+                  1000
                 </span>
                 <span class="max-w-28 max-lg:max-w-max"
                   >Активный пользователи</span
@@ -127,7 +126,7 @@ onMounted(() => {
                 <span
                   class="text-5xl font-medium text-whiting max-2xl:text-3xl"
                 >
-                  1M+
+                  1000+
                 </span>
                 <span class="max-w-28 max-lg:max-w-max"
                   >Зарегриствуны люди
@@ -135,10 +134,13 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <img
-            src="@/assets/img/chip.png"
-            class="h-full max-h-[500px] max-2xl:max-h-[400px] my-auto max-lg:hidden"
-          />
+          <div class="flex items-start p-10">
+
+            <img
+              src="@/assets/img/logo.png"
+              class="h-auto  w-full object-contain max-w-full flex  overflow-hidden  "
+            />
+          </div>
         </div>
       </div>
       <div class="fixed bottom-0 left-0 w-full h-36 bl-liner"></div>
