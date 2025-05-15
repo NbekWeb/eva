@@ -18,13 +18,13 @@ const useAuth = defineStore("auth", {
           callback();
         })
         .catch((error) => {
-          if (error.response.data.detail) {
-            message.error(error.response.data.detail);
-          } 
-          else if(error.response){
-            console.log(error.response)
-          }
-          else {
+          if (error?.response?.data?.detail) {
+            message.error(error?.response?.data?.detail);
+          } else if (error?.response?.data?.email) {
+            message.error(error?.response?.data?.email);
+          } else if (error?.response?.data?.username) {
+            message.error(error?.response?.data?.usernameß);
+          } else {
             message.error("Что-то пошло не так!");
           }
         })
@@ -150,7 +150,6 @@ const useAuth = defineStore("auth", {
           core.loadingUrl.delete("vk");
         });
     },
-    
   },
 });
 
