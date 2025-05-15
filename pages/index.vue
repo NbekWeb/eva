@@ -134,7 +134,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="flex items-start p-10">
+          <div class="flex items-start p-10 max-lg:hidden max-md:p-0">
 
             <img
               src="@/assets/img/logo.png"

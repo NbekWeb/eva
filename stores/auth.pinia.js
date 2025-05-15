@@ -20,7 +20,11 @@ const useAuth = defineStore("auth", {
         .catch((error) => {
           if (error.response.data.detail) {
             message.error(error.response.data.detail);
-          } else {
+          } 
+          else if(error.response){
+            console.log(error.response)
+          }
+          else {
             message.error("Что-то пошло не так!");
           }
         })
