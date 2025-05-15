@@ -8,11 +8,11 @@ const router = useRouter();
 const authPinia = useAuth();
 
 const form = reactive({
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-  password_confirm: "",
+  name: "Nbek",
+  username: "Nbek",
+  email: "test@gmail.com",
+  password: "123456",
+  password_confirm: "123456",
 });
 const formRef = ref(null);
 
