@@ -18,6 +18,7 @@ const useAuth = defineStore("auth", {
           callback();
         })
         .catch((error) => {
+          console.log(error?.response?.data)
           if (error?.response?.data?.detail) {
             message.error(error?.response?.data?.detail);
           } else if (error?.response?.data?.email) {
