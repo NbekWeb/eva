@@ -13,12 +13,6 @@ const close = () => {
 
 useHead({
   title: "Rate",
-  meta: [
-    { name: "description", content: "This is a description of my Nuxt page" },
-    { name: "keywords", content: "nuxt, vue, meta tags, SEO" },
-    { property: "og:title", content: "My Nuxt Page" },
-    { property: "og:description", content: "Open Graph Description" },
-  ],
 });
 
 onMounted(() => {
@@ -46,10 +40,10 @@ onMounted(() => {
       </p>
     </div>
     <div
-      class="flex justify-center gap-10 mt-32 max-2xl:mt-10 max-2xl:gap-5 max-xl:flex-wrap"
+      class="grid grid-cols-3 gap-10 mt-32 max-2xl:mt-10 max-2xl:gap-5 max-xl:flex-wrap max-xl:justify-between  max-xl:flex"
     >
       <rate-card
-        :class="i % 2 == 0 && 'mt-12 max-xl:mt-0'"
+        :class="[i % 2 == 0 && 'mt-12 max-xl:mt-0 ',i==2&&'mx-auto']"
         :type="i % 2 != 0 ? 'blue' : 'white'"
         v-for="(price, i) in prices"
         :key="i"
