@@ -100,7 +100,7 @@ onMounted(() => {
               <p
                 class="text-base text-gray-100 my-9 max-2xl:my-6 max-lg:text-center max-sm:my-6 max-sm:text-sm"
               >
-     Ниже Просто задайте вопрос, и Ева подскажет, как заботиться о своем здоровье, улучшить самочувствие и повысить качество жизни
+      Просто задайте вопрос, и Ева подскажет, как заботиться о своем здоровье, улучшить самочувствие и повысить качество жизни
               </p>
               <button
                 @click="goChat"
@@ -116,21 +116,11 @@ onMounted(() => {
                 <span
                   class="text-5xl font-medium text-whiting max-2xl:text-3xl"
                 >
-                  1000
+                  1000+
                 </span>
                 <span class="max-w-28 max-lg:max-w-max"
                   >Активный пользователи</span
                 >
-              </div>
-              <div class="flex items-center gap-5 max-sm:gap-2.5">
-                <span
-                  class="text-5xl font-medium text-whiting max-2xl:text-3xl"
-                >
-                  1000+
-                </span>
-                <span class="max-w-28 max-lg:max-w-max"
-                  >Зарегриствуны люди
-                </span>
               </div>
             </div>
           </div>
