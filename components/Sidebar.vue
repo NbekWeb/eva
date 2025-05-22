@@ -21,7 +21,9 @@ function logout() {
   router.push("/");
 }
 function clearAll() {
-  chatPinia.clearAllChat();
+  chatPinia.clearAllChat(() => {
+    newChat();
+  });
 }
 const props = defineProps({
   data: {
