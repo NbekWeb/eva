@@ -1,7 +1,9 @@
 <script setup>
+import useChat from "~/stores/chat.pinia";
 const isDropdownOpen = ref(false);
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "openNewChat"]);
 const router = useRouter();
+const chatPinia = useChat();
 function close() {
   emit("close");
 }
@@ -23,8 +25,15 @@ function goChat(id) {
     path: router.currentRoute.value.path,
     query: { ...router.currentRoute.value.query, chat: id },
   });
-  close()
+  close();
+}
 
+function deleteChat(id) {
+  isDropdownOpen.value = false;
+  chatPinia.deleteChat(id, () => {
+    message.success("Чат удален!");
+    emit("openNewChat");
+  });
 }
 
 onMounted(() => {
@@ -62,15 +71,15 @@ onBeforeUnmount(() => {
           @openChange="(val) => (isDropdownOpen = val)"
           trigger="click"
         >
-          <span @click.prevent class="flex items-center h-5 min-w-6">
+          <span @click.stop class="flex items-center h-5 min-w-6">
             <IconDots
-              class="text-gray-400 transition duration-300 opacity-0 min-w-max group-hover:opacity-100"
+              class="text-gray-400 transition duration-300 opacity-0 min-w-max group-hover:opacity-100 max-lg:opacity-100"
               :class="isDropdownOpen && 'opacity-100'"
             />
           </span>
           <template #overlay>
             <a-menu>
-              <a-menu-item key="1">
+              <a-menu-item key="1" @click="deleteChat(data.id)">
                 <div class="flex gap-2.5 items-center text-base text-dark-200">
                   <IconDelete />
                   <span class="text-xs"> Удалить </span>

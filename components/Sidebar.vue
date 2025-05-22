@@ -12,13 +12,16 @@ function close() {
 
 function newChat() {
   router.push({
-    path: '/chat'
+    path: "/chat",
   });
-  close()
+  close();
 }
 function logout() {
   localStorage.removeItem("access_token");
   router.push("/");
+}
+function clearAll() {
+  chatPinia.clearAllChat();
 }
 const props = defineProps({
   data: {
@@ -39,10 +42,9 @@ const props = defineProps({
         <IconClose class="text-xl text-dark-200 sm:hidden" @click="close" />
       </div>
       <div class="flex items-center gap-2.5 h-10">
-        <button 
-        @click="newChat"
+        <button
+          @click="newChat"
           class="flex hover:opacity-90 rounded-3xl items-center justify-center flex-grow text-lg text-white btn-new gap-2.5 h-full"
-          
         >
           <IconPlus />
           <span class="text-base">Новый чать</span>
@@ -62,6 +64,7 @@ const props = defineProps({
       >
         <span class="text-xs text-gray-500">Ваши разговоры</span>
         <span
+          @click="clearAll"
           class="text-sm font-semibold text-blue-500 hover:cursor-pointer"
           :class="chats.length == 0 && 'opacity-50 hover:cursor-not-allowed'"
           >Очистить все</span
@@ -71,15 +74,30 @@ const props = defineProps({
         <!-- <div class="p-5 border-b border-t border-gray-300 text-gray-600">
             Сегодня
           </div> -->
-        <div class="flex flex-col gap-5 max-sm:py-2.5 max-sm:gap-2" v-if="chats?.[0]?.today?.length > 0">
-          <MsgCard v-for="chat in chats?.[0]?.today" :key="chat.id" :data="chat" @close="close"  />
+        <div
+          class="flex flex-col gap-5 max-sm:py-2.5 max-sm:gap-2"
+          v-if="chats?.[0]?.today?.length > 0"
+        >
+          <MsgCard
+            v-for="chat in chats?.[0]?.today"
+            :key="chat.id"
+            :data="chat"
+            @close="close"
+            @openNewChat="newChat"
+          />
         </div>
         <div v-if="chats?.[0]?.yesterday?.length > 0">
           <div class="p-5 border-b border-t border-gray-300 text-gray-600">
             Вчера
           </div>
           <div class="flex flex-col gap-5 max-sm:gap-2">
-            <MsgCard v-for="chat in chats?.[0]?.yesterday" :key="chat.id" :data="chat" @close="close" />
+            <MsgCard
+              v-for="chat in chats?.[0]?.yesterday"
+              :key="chat.id"
+              :data="chat"
+              @close="close"
+              @openNewChat="newChat"
+            />
           </div>
         </div>
       </div>

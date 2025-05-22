@@ -58,7 +58,7 @@ const useChat = defineStore("chat", {
           core.loadingUrl.delete("chat");
         });
     },
-    getChat(id,callback=()=>{}) {
+    getChat(id, callback = () => {}) {
       const core = useCore();
       core.loadingUrl.add("chat");
       api({
@@ -67,14 +67,14 @@ const useChat = defineStore("chat", {
       })
         .then(({ data }) => {
           this.chat = data;
-          callback()
+          callback();
         })
         .catch(() => {})
         .finally(() => {
           core.loadingUrl.delete("chat");
         });
     },
-    postAnswer(id,callback) {
+    postAnswer(id, callback) {
       const core = useCore();
       core.loadingUrl.add("chat/answer");
       api({
@@ -82,13 +82,46 @@ const useChat = defineStore("chat", {
         method: "GET",
       })
         .then(() => {
-          callback()
+          callback();
         })
         .catch((err) => {
-          console.error('Error:', err);
+          console.error("Error:", err);
         })
         .finally(() => {
           core.loadingUrl.delete("chat/answer");
+        });
+    },
+    clearAllChat(callback) {
+      const core = useCore();
+      core.loadingUrl.add("chat");
+      api({
+        url: `chat/chat_history/statistics/`,
+        method: "GET",
+      })
+        .then(({}) => {
+          this.chats = [];
+          callback();
+        })
+        .catch(() => {})
+        .finally(() => {
+          core.loadingUrl.delete("chat");
+        });
+    },
+    deleteChat(id, callback) {
+      const core = useCore();
+      core.loadingUrl.add("chat/");
+      api({
+        url: `chat/detail/${id}/`,
+        method: "DELETE",
+      })
+        .then(() => {
+          callback();
+        })
+        .catch((err) => {
+          console.error("Error:", err);
+        })
+        .finally(() => {
+          core.loadingUrl.delete("chat/");
         });
     },
   },
