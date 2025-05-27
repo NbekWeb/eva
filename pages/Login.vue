@@ -46,7 +46,7 @@ const redirectToVK = () => {
 
 const redirectGoogle = () => {
   authPinia.getGoogle((url) => {
-    window.location.href = url;
+    window.open(url, "_blank");
   });
 };
 
