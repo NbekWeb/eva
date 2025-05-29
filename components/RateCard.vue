@@ -24,7 +24,7 @@ function buy() {
 </script>
 <template>
   <div
-    class="w-[375px] max-sm:w-full max-sm:h-[280px] relative z-10 h-full min-h-[375px] rounded py-6 px-5 flex flex-col justify-between"
+    class="w-[375px] max-sm:w-full max-sm:min-h-[280px] relative z-10  min-h-[375px] rounded py-6 px-5 flex flex-col justify-between h-max"
     :class="
       type == 'white' ? 'bg-white text-dark-180' : 'bg-blue-100 text-white'
     "
