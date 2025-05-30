@@ -13,6 +13,16 @@ const props = defineProps({
   },
 });
 
+function getZaprosWord(count) {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return "запрос";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20))
+    return "запроса";
+  return "запросов";
+}
+
 function buy() {
   pricePinia.postPrice(props.data.id, (data) => {
     localStorage.setItem("payment_id", data.payment_id);
@@ -24,7 +34,7 @@ function buy() {
 </script>
 <template>
   <div
-    class="w-[375px] max-sm:w-full max-sm:min-h-[280px] relative z-10  min-h-[375px] rounded py-6 px-5 flex flex-col justify-between h-max"
+    class="w-[375px] max-sm:w-full max-sm:min-h-[280px] relative z-10 min-h-[375px] rounded py-6 px-5 flex flex-col justify-between h-max"
     :class="
       type == 'white' ? 'bg-white text-dark-180' : 'bg-blue-100 text-white'
     "
@@ -47,7 +57,10 @@ function buy() {
         <span class="text-6xl font-semibold max-sm:text-4xl"
           >&#8381;{{ Math.floor(data.price) }}</span
         >
-        <span class="text-base">/ {{ data.count_typing }} запрос</span>
+        <span class="text-base"
+          >/ {{ data.count_typing }}
+          {{ getZaprosWord(data.count_typing) }}</span
+        >
       </div>
       <button
         @click="buy"
